@@ -1,0 +1,48 @@
+{% extends 'quiz/template.html.twig' %}
+
+       {% block middle %}
+
+           {% if category.quizzs.count==0 %}
+               <ol class="list-group list-group-numbered  sticky-top">
+                   <li style="background-color: {{ category.color }}" class="h3 list-group-item d-flex justify-content-between align-items-start text-light">
+                       Quizs de la catégorie {{ category.category }}</li>
+
+                   <li class="list-group-item d-flex justify-content-between align-items-start" >
+                       <div class="h5 ms-2 me-auto">Aucun quizz dans cette catégorie pour le moment..
+                       </div>
+                   </li>
+
+               </ol>
+           {% else %}
+               <ol class="list-group list-group-numbered  sticky-top">
+                   <li style="background-color: {{ category.color }}" class="h3 list-group-item d-flex justify-content-between align-items-start text-light">
+                       Quizs de la catégorie {{ category.category }}</li>
+                   {% for quiz in quizs %}
+                       <li class="list-group-item d-flex justify-content-between align-items-start custom-li">
+                           <div class="w-100 d-flex justify-content-between">
+                               <a href="{{ path('start-quiz',{'slug': quiz.slug}) }}" class="fw-bold h5 custom-a-yellow">{{ quiz.name }}</a>
+                               <a style="color: {{ category.color }}" class="custom-a-yellow" href="{{ path('category',{'slug': quiz.category.id}) }}">
+                                   <i  class="{{ quiz.category.icon }}" aria-hidden="true"></i>
+                                   {{ quiz.category.category }}</a>
+                           </div>
+
+                       </li>
+
+
+                   {% endfor %}
+
+                   {% if quizs.totalItemCount>quizs.itemNumberPerPage %}
+                   <li class="list-group-item custom-li">
+                       <div style="display: ruby">
+                           {{ knp_pagination_render(quizs) }}
+                       </div>
+                   </li>
+               </ol>
+               {% endif %}
+
+
+           {% endif %}
+
+
+
+       {% endblock %}

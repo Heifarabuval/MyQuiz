@@ -1,0 +1,119 @@
+@font-face {
+  font-family: "Reggae";
+  src: url("../../fonts/ReggaeOne-Regular.ttf");
+}
+@font-face {
+  font-family: "Josefin";
+  src: url("../../fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf");
+}
+body {
+  background-color: rgba(239, 237, 237, 0.87);
+  font-family: Josefin;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+  clear: both;
+  position: relative;
+  height: 200px;
+  margin-top: -200px;
+}
+
+.hover_custom:hover {
+  margin-right: 10px;
+}
+
+.custom-font {
+  font-family: Reggae;
+}
+
+.anchors:hover {
+  transition: padding 200ms;
+  text-decoration: none;
+  color: #d4260b;
+}
+
+html {
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.custom-text-yellow {
+  color: #E3B505;
+}
+
+.bg-light-custom {
+  background: aliceblue;
+}
+
+.custom-text-blue {
+  color: #044B7F;
+}
+
+.custom-text-blue-light {
+  color: #107E7D;
+}
+
+.custom-a-yellow {
+  color: #d4760b;
+}
+.custom-a-yellow:hover {
+  transition: padding 200ms;
+  text-decoration: none;
+  color: #d4260b;
+}
+
+.custom-li:hover {
+  background-color: rgba(180, 211, 224, 0.2);
+  transition: background-color 200ms ease-in;
+}
+
+.bg-yellow-1 {
+  background-color: #d4ad0b;
+}
+
+.text-grey-custom {
+  color: #9f9f9f;
+}
+
+.color-yellow-1 {
+  color: #d4ad0b;
+}
+
+.bg-blue-1 {
+  background-color: #02a9bb;
+}
+
+.bg-yellow-2 {
+  background-color: #cc7904;
+}
+
+.zoom {
+  padding: 50px;
+  background-color: green;
+  transition: transform 0.2s;
+  /* Animation */
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+.zoom:hover {
+  transform: scale(1.5);
+}
+
+.star-logo {
+  display: block;
+  text-indent: -9999px;
+  width: 100px;
+  height: 82px;
+  background: url(../../images/star-regular.svg);
+  background-size: 100px 82px;
+}
+
+.bg-success-custom {
+  background-color: rgba(27, 128, 10, 0.32);
+}
+
+/*# sourceMappingURL=app.css.map */

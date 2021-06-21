@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/security/login.css') }}">
+{% endblock %}
+{% block body %}
+
+
+    <div class="container text-center">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                <div class="jumbotron jumbotron-fluid bg-dark mt-5 rounded">
+                    <div class="container">
+                        <h1 class="display-4 text-light mb-4">{{ app.user.username }} vous êtes déja connecté </h1>
+                        <div class="container">
+                            <div class="row">
+                                <div style="background: url('{{ asset('images/obscur.jpg') }}');background-size: cover; background-repeat: no-repeat;" class="col-4 zoom rounded">
+                                    <a href="{{ path('security_logout') }}">
+                                        <div class="h3 text-light d-flex flex-column justify-content-between p-150">
+                                            Logout
+                                        </div>
+
+                                    </a>
+
+                                </div>
+
+                                <div style=" background: url('{{ asset('images/lumineux.jpg') }}');background-size: cover; background-repeat: no-repeat;" class="col-4 col-offset zoom rounded">
+                                    <a href="{{ path('profile') }}">
+                                    <div class="h3 text-light d-flex  flex-column justify-content-between p-150">
+                                      Profile
+                                    </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        {% else %}
+            <div class="jumbotron jumbotron-fluid bg-dark mt-5 rounded">
+                <div class="container">
+                    <h1 class="display-4 text-light">Connexion</h1>
+                </div>
+            </div>
+
+            <form action="{{ path('security_login') }}" method="post">
+                <div class="form-group">
+                    <input placeholder="Adresse email ..." type="email" class="form-control" required name="_username">
+                </div>
+                <div class="form-group">
+                    <input placeholder="Mot de passe ..." type="password" class="form-control" required
+                           name="_password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        Connexion !
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

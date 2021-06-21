@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="text-center alert alert-success" role="alert">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+    {% endfor %}
+
+<div class="text-center container">
+
+    <div  class="jumbotron jumbotron-fluid bg-dark mt-5 rounded text-center">
+        <div style="justify-content: space-evenly" class="container d-flex" >
+
+            <h1 class="text-light">Bienvenue sur ton profil {{ user.username }}  !</h1>
+            {% if history is not empty %}
+            {% set i=0 %}
+            {% for his in history %}
+                {% set i=i+his.score %}
+            {% endfor %}
+            {%  set l= history | length %}
+            {% set rank=i/l %}
+                <span style="height: 3em;width: 3em;line-height: 3em" class="fa-stack">
+                <i class="fas fa-star fa-3x   text-warning" aria-hidden="true">
+                    <strong class="fa-stack-2x text-light" style="z-index: 200;font-size: 40%;position: absolute;bottom: 20%; margin: 2px"> {{ rank|round }}</strong>
+                </i>
+                </span>
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="container border border-primary rounded mt-5">
+        <h3 class="mt-3 mb-3 ">Modifier mes informations personnelles</h3>
+        <div class="row p-4">
+            <div class="col">
+                {{ form_start(form) }}
+                {{ form_row(form.username,{'attr':{'value':user.username}}) }}
+                {{ form_row(form.email,{'attr':{'value':user.email}}) }}
+                <button type="submit" class="btn btn-success">Modifier</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="col">
+                <a href="{{ path('update_password') }}" class="btn btn-lg btn-warning">
+                    <span>Changer mon mot de passe</span>
+                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                </a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+<div class="container mt-5 p-3 ">
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Historique de jeu
+    </button>
+    <div class="row">
+        <div class="col">
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                <h1>Historique de jeu</h1>
+                                <tr>
+                                    <th scope="col">Quiz</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for history in user.histories %}
+                                    <tr>
+                                        <td>{{ history.quiz.name }}</td>
+                                        <td>{{ history.score }}</td>
+                                        <td>{{ history.createdAt | date('d/m/Y') }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block body %}
+
+
+    <i class="fa fa-star-o fa-3x   text-warning" aria-hidden="true"></i>
+    <div class="container-fluid text-center">
+
+        <div class="row">
+            <div class="col-5 col-lg-3 mt-4">
+                <ol class="list-group list-group-numbered">
+                    <li class="h3 list-group-item d-flex justify-content-between align-items-start bg-yellow-1 text-light">
+                        Catégories
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start custom-li">
+                        <a href="{{ path('quiz') }}"
+                           class="fw-bold h5 ms-2 me-auto w-100 custom-a-yellow">
+                            Tous</a>
+                        <span style="background-color: #cb7905"
+                              class=" h5 p-2 badge text-light rounded-pill">{{ categories |length }}</span>
+                    </li>
+                    {% for category in categories %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start custom-li">
+                            <a href="{{ path('category',{'slug': category.slug}) }}"
+                               class="fw-bold h5 ms-2 me-auto w-100 custom-a-yellow">
+                                {{ category.category }}</a>
+                            <span style="background-color: {{ category.color }}"
+                                  class=" h5 p-2 badge text-light rounded-pill">{{ category.quizzs.count }}</span>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="col-7 col-lg-6 mt-4">
+                {% block middle %}
+
+                {% endblock %}
+            </div>
+            <div class="col-lg-3 mt-4">
+                {% if app.user is  empty %}
+
+                    {% set i=0 %}
+                    {% for his in history %}
+                        {% set i=i+his.score %}
+                    {% endfor %}
+                    {% set l= history | length %}
+                    {% set rank=i/l %}
+                {% else %}
+
+                    {% set i=0 %}
+                    {% for his in history %}
+                        {% set i=i+his.score %}
+                    {% endfor %}
+                    {% set l= history | length %}
+                    {% set rank=i/l %}
+
+
+                {% endif %}
+                <ul class="list-group  sticky-top">
+                    <li class=" list-group-item d-flex justify-content-between align-items-start bg-blue-1 text-light">
+                        <span class="h3"> Rang</span>
+                        <span style="height: 3em;width: 3em;line-height: 3em" class="fa-stack">
+                                 <i class="fas fa-star fa-3x   text-warning" aria-hidden="true">
+                                     <strong class="fa-stack-2x text-light"
+                                             style="z-index: 200;font-size: 40%;position: absolute;bottom: 20%; margin: 2px"> {{ rank|round }}</strong>
+                                 </i>
+                                </span>
+                    </li>
+                    <li class=" list-group-item d-flex justify-content-between align-items-start bg-blue-1 text-light">
+                        <span class="font-weight-bold"> Vos dernières 10 parties </span>
+                    </li>
+                    {% set i=0 %}
+                    {% if history is iterable %}
+
+                        {% for item in history %}
+                            {% if i<10 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-start custom-li">
+
+                                    <a href="{{ path('start-quiz',{'slug': item.quiz.slug}) }}"
+                                       class="h5 ms-2 me-auto w-100 custom-a-yellow">
+                                        {{ item.quiz.name }}
+                                    </a>
+
+                                    <span class="p-2 badge bg-warning text-light rounded-pill">{{ item.score }}</span>
+                                </li>
+                            {% endif %}
+                            {% set i=i+1 %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

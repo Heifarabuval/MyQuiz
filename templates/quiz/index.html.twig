@@ -1,0 +1,28 @@
+{% extends 'quiz/template.html.twig' %}
+
+       {% block middle %}
+
+           <ol class="list-group list-group-numbered  sticky-top">
+               <li class="h3 list-group-item d-flex justify-content-between align-items-start bg-yellow-2 text-light">
+                   Quizs
+               </li>
+               {% for quiz in quizs %}
+
+                   <li class="list-group-item d-flex justify-content-between align-items-start custom-li">
+                       <div class="w-100 d-flex justify-content-between">
+                           <a href="{{ path('start-quiz',{'slug': quiz.slug}) }}"
+                              class="fw-bold h5 custom-a-yellow">{{ quiz.name }}</a>
+                           <a style="color: {{ quiz.category.color }}" class="anchors" href="{{ path('category',{'slug': quiz.category.slug}) }}">
+                               <i  class="{{ quiz.category.icon }}" aria-hidden="true"></i>
+                               {{ quiz.category.category }}</a>
+                       </div>
+                   </li>
+               {% endfor %}
+               <li class="list-group-item ">
+                   <div class="d-flex justify-content-center">
+                       {{ knp_pagination_render(quizs) }}
+                   </div>
+               </li>
+           </ol>
+
+       {% endblock %}

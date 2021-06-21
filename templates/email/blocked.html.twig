@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer le mail{% endblock %}
+
+{% block body %}
+    <div class="container text-center mt-5">
+        <h1>Bonjour {{ user.username }} !</h1>
+        <p class="text-danger">Veuillez  vous rendre sur votre hébergeur mail préféré et confirmer votre adresse mail:
+            {{ user.email }} </p>
+    </div>
+{% endblock %}

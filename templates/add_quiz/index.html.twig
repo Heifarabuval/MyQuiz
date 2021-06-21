@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau quiz{% endblock %}
+
+{% block body %}
+
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="text-center alert alert-success" role="alert">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+    {% endfor %}
+
+
+
+
+    <div class="text-center container">
+        <div class="jumbotron jumbotron-fluid bg-dark mt-5 rounded text-center">
+            <div style="justify-content: space-evenly" class="container d-flex">
+                <h1 class="text-light">Créer un quiz</h1>
+
+            </div>
+        </div>
+        <div class="container rounded mt-5 p-3">
+            <form action="{{ path('add-quiz') }}" method="post">
+                <div class="p-3 border rounded">
+                    <h2 class="mt-2 p-2 text-light bg-dark">Informations principales</h2>
+                    {{ form_row(form.name,{ 'label': 'Titre du quiz' }) }}
+                   {# <div class="form-group">
+                        <label for="title">Titre du quiz</label>
+                        <input class="form-control" id="title" type="text" name="title" required>
+                    </div>#}
+                    <div class="form-group">
+                        <label for="category">Categorie</label>
+                        <select class="form-control" id="category" name="category">
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-5 p-3 border rounded ">
+                    <h3 class="mt-2 p-2 text-light bg-dark">Questions & Réponses</h3>
+                    {% for i in 1..10 %}
+                    <div class="form-group mx-auto mt-5">
+                        <label for="question-{{ i }}" class="h4">Question {{ i}} </label>
+                        <input class="form-control" id="question-{{ i }}" type="text" name="question-{{ i }}" required>
+                        <div class="container mt-5">
+                            <div class="row  pb-3 ">
+                                <div class="col-12 m-2">
+                                    <label for="question-{{ i }}/answer-1">Bonne réponse </label>
+                                    <input style="background-color: rgba(50,251,15,0.16)" class="form-control" id="question-{{ i }}/answer-1" type="text" name="question-{{ i }}/answer-1" required>
+                                </div>
+                                <div class="col-6">
+                                    <label for="question-{{ i }}/answer-2">Réponse 2 </label>
+                                    <input class="form-control" id="question-{{ i }}/answer-2" type="text" name="question-{{ i }}/answer-2" required>
+                                </div>
+                                <div class="col-6">
+                                    <label for="question-{{ i }}/answer-3">Réponse 3 </label>
+                                    <input class="form-control" id="question-{{ i }}//answer-3" type="text" name="question-{{ i }}/answer-3" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+                    {% endfor %}
+
+                </div>
+
+
+                <button type="submit" class=" mt-4 btn btn-success btn-lg">Créer !</button>
+            </form>
+
+
+        </div>
+
+
+    </div>
+{% endblock %}

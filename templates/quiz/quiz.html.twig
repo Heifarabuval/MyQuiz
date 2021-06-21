@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Quiz: {{ quiz.name }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div style="background-color: {{ quiz.category.color }}"  class="jumbotron jumbotron-fluid mt-5 rounded text-center">
+            <div  class="container d-flex justify-content-between" >
+
+                {% if scoreRecorded is defined and  scoreRecorded is not null%}
+                    <div>
+                        <h1 style="font-size: 3em;" class="text-light custom-font">{{ quiz.name }}</h1>
+                        <h4 class="text-grey-custom">Dernier score : {{ scoreRecorded }} %</h4>
+                    </div>
+
+                {% else %}
+                    <div>
+                        <h1 style="font-size: 3em;" class="text-bold text-light custom-font">{{ quiz.name }}</h1>
+                    </div>
+
+                {% endif %}
+                {% if app.user is  null %}
+                {% if cookies.last_score is defined %}
+                    <span style="height: 3em;width: 3em;line-height: 3em" class="fa-stack">
+                <i class="fas fa-star fa-3x   text-warning" aria-hidden="true">
+                    <strong class="fa-stack-2x text-light" style="z-index: 200;font-size: 40%;position: absolute;bottom: 20%; margin: 2px"> {{ cookies.last_score | round }}</strong>
+                </i>
+                </span>
+                {% endif %}
+                {% else %}
+
+                {% if bestScore.score is defined %}
+                    <span style="height: 3em;width: 3em;line-height: 3em" class="fa-stack">
+                <i class="fas fa-star fa-3x   text-warning" aria-hidden="true">
+                    <strong class="fa-stack-2x text-light" style="z-index: 200;font-size: 40%;position: absolute;bottom: 20%; margin: 2px"> {{ bestScore.score }}</strong>
+                </i>
+                </span>
+                {% endif %}
+
+
+                {% endif %}
+
+            </div>
+        </div>
+
+
+
+
+        <form class="text-justify" method="post" action="{{ path('start-quiz',{'slug': quiz.slug}) }}">
+            <div class="container ">
+                <div class="row">
+        {% for question in quiz.questions %}
+
+                <div class="col-12 text-justify p-3 rounded bg-light-custom m-2 p-1">
+
+
+
+                {% if  question.status is not null  %}
+                {% if question.status=='ok' %}
+                    <h4 class="font-weight-bold text-success"><i class="fa fa-check text-success" aria-hidden="true"></i>  {{ question.question }}</h4>
+                {% else %}
+                    <h4 class="font-weight-bold text-danger"><i class="fa fa-times text-danger" aria-hidden="true"></i>  {{ question.question }}</h4>
+                {% endif %}
+
+                    {% else %}
+                        <p class=" h4 font-weight-bold custom-text-yellow text-center">{{ question.question }}</p>
+                {% endif %}
+                    <div class="mt-3">
+
+
+
+                {% for answer in question.answers %}
+                    <div class="form-check ml-5 mt-2">
+                        <input class="form-check-input" required type="radio" id="{{ answer.id }}" name="{{ question.id }}" value="{{ answer.expectedAnswerCrypt }}">
+                        <label class="form-check-label h5 custom-text-blue-light"  for="{{ answer.id }}">{{ answer.answer }}</label>
+                    </div>
+                {% endfor %}
+                    </div>
+            </div>
+
+        {% endfor %}
+            <div class="text-center m-4">
+                <button class="btn btn-lg btn-success" type="submit">Envoyer</button>
+            </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </div>
+{% endblock %}

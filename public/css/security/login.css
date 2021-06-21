@@ -1,0 +1,18 @@
+.zoom {
+    padding: 50px;
+    background-color: green;
+    transition: transform 200ms; /* Animation */
+    width: 475px;
+    height: 333px;
+    margin: 0 auto;
+
+}
+
+.zoom:hover {
+    z-index: 2000;
+    transform: scale(1.04);
+
+}
+.p-150{
+    padding: 150px;
+}
