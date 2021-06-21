@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Heifarabuval/BiggestSquare">
-    <img src="readMeImg/carbon.png" alt="Logo" width="1200" height="800">
+    <img src="readMeImg/carbon.png" alt="Logo" width="800" height="400">
   </a>
 
 <h3 align="center">My Quiz</h3>
